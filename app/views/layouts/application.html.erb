@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ReservationApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #f0f8ff;">
+      <h1><%= link_to "Reservation", root_path %></h1>
+    
+      <div style="text-align: right;">
+        <% if user_signed_in? %>
+          <p>こんにちは、<%= current_user.email %>さん！</p>
+          <%= link_to 'マイページへ', user_path(current_user) %> |
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete, confirm: "ログアウトしますか？" } %>
+        <% else %>
+          <%= link_to 'ログイン', new_user_session_path %> |
+          <%= link_to '新規登録', new_user_registration_path %>
+        <% end %>
+      </div>
+    </header>
+
+    <%= yield %>
+  </body>
+
+</html>

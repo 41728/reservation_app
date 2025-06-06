@@ -1,0 +1,11 @@
+<h1><%= @user.email %>さんのマイページ</h1>
+<p>ユーザー情報をここに表示します。</p>
+<p>ようこそ、<%= current_user.email %> さん</p>
+
+<h3>チャットルーム</h3>
+<ul>
+  <% ChatRoom.all.each do |room| %>
+    <li><%= link_to room.name, chat_room_path(room) %></li>
+  <% end %>
+</ul>
+<%= link_to "チャットルーム一覧へ", chat_rooms_path %>

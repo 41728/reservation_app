@@ -1,0 +1,45 @@
+<h1>新しい予約</h1>
+
+<h2>予約する曜日を選んでください</h2>
+
+<div id="days-tabs">
+  <% Date::DAYNAMES.each_with_index do |day, i| %>
+    <button type="button" data-day="<%= i %>" class="day-btn"><%= day %></button>
+  <% end %>
+</div>
+
+<div id="time-slots">
+  <!-- 時間帯ボタンがここに動的に表示される -->
+</div>
+
+<%= form_with model: @home, local: true do |f| %>
+  <%= hidden_field_tag 'home[day_of_week]', nil, id: 'selected-day' %>
+  <%= hidden_field_tag 'home[start_time]', nil, id: 'selected-start-time' %>
+  <%= f.submit "予約を確定する" %>
+<% end %>
+
+<script>
+  const timeSlots = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30'];
+  const timeSlotsDiv = document.getElementById('time-slots');
+  const selectedDayInput = document.getElementById('selected-day');
+  const selectedStartTimeInput = document.getElementById('selected-start-time');
+
+  document.querySelectorAll('.day-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedDayInput.value = btn.dataset.day;
+      timeSlotsDiv.innerHTML = '';
+      timeSlots.forEach(time => {
+        const timeBtn = document.createElement('button');
+        timeBtn.type = 'button';
+        timeBtn.textContent = time;
+        timeBtn.addEventListener('click', () => {
+          selectedStartTimeInput.value = time;
+          alert(`予約日時: 曜日 ${btn.textContent} - 時間 ${time}`);
+        });
+        timeSlotsDiv.appendChild(timeBtn);
+      });
+    });
+  });
+</script>
+
+<%= link_to "予約一覧に戻る", homes_path %>

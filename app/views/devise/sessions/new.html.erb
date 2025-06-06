@@ -1,0 +1,37 @@
+<h1 style="text-align: center;">ログイン</h1>
+
+<!-- 全体ラッパー：中央寄せ -->
+<div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+  <div style="width: 100%; max-width: 400px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f0f8ff;">
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+      <div class="field" style="margin-top: 20px; text-align: center;">
+        <%= f.label :email, "メールアドレス" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      </div>
+
+      <div class="field" style="margin-top: 20px; text-align: center;">
+        <%= f.label :password, "パスワード" %><br />
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field" style="margin-top: 20px; text-align: center;">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, "ログイン情報を記憶する" %>
+        </div>
+      <% end %>
+
+      <div class="actions" style="margin-top: 20px; text-align: center;">
+        <%= f.submit "ログイン", class: "btn btn-primary" %>
+      </div>
+
+    <% end %>
+
+    <div style="margin-top: 20px; text-align: center;">
+      <%= render "devise/shared/links" %>
+    </div>
+
+  </div>
+</div>

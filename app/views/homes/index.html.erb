@@ -1,0 +1,63 @@
+<h1 style="text-align:center;">オンライン予約サービスへようこそ！</h1>
+
+<div class="calendar-wrapper" style="max-width: 900px; margin: 0 auto;">
+
+  <h2>今週の予約カレンダー</h2>
+
+  <div style="text-align: center; margin: 20px 0;">
+    <% prev_week = @start_date - 7.days %>
+    <% next_week = @start_date + 7.days %>
+
+    <%= link_to "← 前週", homes_path(start_date: prev_week), class: "btn" %>
+    &nbsp;&nbsp;
+    <strong><%= @start_date.strftime("%Y年%m月%d日") %> 〜 <%= (@start_date + 6).strftime("%m月%d日") %></strong>
+    &nbsp;&nbsp;
+    <%= link_to "次週 →", homes_path(start_date: next_week), class: "btn" %>
+  </div>
+  <style>
+    .btn {
+      padding: 6px 12px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+
+  <table border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse; text-align: center; margin-bottom: 2rem;">
+    <thead>
+      <tr>
+        <th style="background-color: #f2f2f2; color: #333;">時間</th>
+        <% wdays = ["日", "月", "火", "水", "木", "金", "土"] %>
+        <% @week_days.each do |day| %>
+          <th style="background-color: #d0e6f7; color: #000;"><%= "#{day.strftime('%m/%d')} (#{wdays[day.wday]})" %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% (9..17).each do |hour| %>
+        <% [0, 30].each do |min| %>
+          <tr>
+            <td style="background-color: #f9f9f9; font-weight: bold;"><%= format("%02d:%02d", hour, min) %></td>
+            <% @week_days.each do |day| %>
+              <td>
+                <% current_time = day.to_datetime.change(hour: hour, min: min) %>
+                <% reservation = @homes.find { |r| r.start_time <= current_time && r.end_time > current_time } %>
+                <% if reservation %>
+                  <span style="color: red; font-weight: bold;">×</span>
+                <% else %>
+                  <span style="color: green; font-weight: bold;">〇</span>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

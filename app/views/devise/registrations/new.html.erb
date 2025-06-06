@@ -1,0 +1,36 @@
+<h1 style="text-align: center;">新規登録</h1>
+
+<!-- 全体ラッパー：中央寄せ -->
+<div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+  <div style="width: 100%; max-width: 400px; padding: 20px; border: 2px solid #add8e6; border-radius: 10px; background-color: #f0f8ff;">
+    
+    <!-- フォーム開始 -->
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      
+      <div class="field" style="margin-top: 20px; text-align: center;">
+        <%= f.label :email, "メールアドレス" %><br />
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+
+      <div class="field" style="margin-top: 20px; text-align: center;">
+        <%= f.label :password, "パスワード" %>
+        <% if @minimum_password_length %>
+          <em>（<%= @minimum_password_length %>文字以上）</em>
+        <% end %><br />
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+
+      <div class="field" style="margin-top: 20px; text-align: center;">
+        <%= f.label :password_confirmation, "パスワード（確認）" %><br />
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+      </div>
+
+      <div class="actions" style="margin-top: 20px; text-align: center;">
+        <%= f.submit "登録する", class: "btn btn-primary" %>
+      </div>
+
+    <% end %>
+    <!-- フォーム終了 -->
+
+  </div>
+</div>

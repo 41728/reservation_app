@@ -1,0 +1,11 @@
+.calendar-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+

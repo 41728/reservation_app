@@ -1,0 +1,15 @@
+<!-- app/views/chat_rooms/index.html.erb -->
+
+<h1>チャットルーム一覧</h1>
+
+<ul>
+  <% @chat_rooms.each do |room| %>
+    <li>
+      <%= link_to "チャットルーム ##{room.id}", chat_room_path(room) %>
+      <% unread = @unread_counts[room.id] %>
+      <% if unread && unread > 0 %>
+        <span style="color: red; font-weight: bold;">（未読 <%= unread %>）</span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

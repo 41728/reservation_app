@@ -1,0 +1,22 @@
+<!-- app/views/chat_rooms/show.html.erb -->
+
+<h1>チャットルーム #<%= @chat_room.id %></h1>
+
+<div id="messages" style="height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
+  <% @messages.each do |msg| %>
+    <p>
+      <strong><%= msg.user.email %></strong>:
+      <%= msg.content %>
+      <small><%= msg.created_at.strftime("%m/%d %H:%M") %></small>
+    </p>
+  <% end %>
+</div>
+
+<%= form_with model: [@chat_room, @message], local: true do |f| %>
+  <div>
+    <%= f.text_area :content, rows: 3, placeholder: "メッセージを入力" %>
+  </div>
+  <div>
+    <%= f.submit "送信" %>
+  </div>
+<% end %>
