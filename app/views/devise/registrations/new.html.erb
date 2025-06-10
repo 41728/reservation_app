@@ -25,6 +25,11 @@
         <%= f.password_field :password_confirmation, class: "form-control" %>
       </div>
 
+      <div class="field" style="margin-top: 20px; text-align: center;">
+        <%= f.label :nickname, "ニックネーム" %><br />
+        <%= f.text_field :nickname %>
+      </div>
+
       <div class="actions" style="margin-top: 20px; text-align: center;">
         <%= f.submit "登録する", class: "btn btn-primary" %>
       </div>

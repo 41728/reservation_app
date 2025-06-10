@@ -1,5 +1,3 @@
-<!-- app/views/chat_rooms/index.html.erb -->
-
 <h1>チャットルーム一覧</h1>
 
 <ul>
@@ -13,3 +11,15 @@
     </li>
   <% end %>
 </ul>
+
+<div style="margin-top: 2rem;">
+  <% if @admin_user %>
+    <%= button_to "新規チャットを作成する", chat_rooms_path(user_id: @admin_user.id), method: :post,
+      form: { data: { turbo: false } },  # ← ここがポイント！
+      data: { confirm: "管理者とチャットを開始しますか？" },
+      class: "btn" %>
+
+  <% else %>
+    <p>管理者ユーザーが存在しません。</p>
+  <% end %>
+</div>

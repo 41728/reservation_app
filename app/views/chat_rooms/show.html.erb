@@ -1,22 +1,33 @@
-<!-- app/views/chat_rooms/show.html.erb -->
+<h1 style="text-align:center; margin-bottom: 1rem;">チャットルーム #<%= @chat_room.id %></h1>
 
-<h1>チャットルーム #<%= @chat_room.id %></h1>
-
-<div id="messages" style="height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
+<div id="messages" data-chat-room-id="<%= @chat_room.id %>">
   <% @messages.each do |msg| %>
-    <p>
-      <strong><%= msg.user.email %></strong>:
+    <% css_class = msg.user == current_user ? "self" : "other" %>
+    <div class="message <%= css_class %>">
+      <% unless css_class == "self" %>
+        <strong><%= msg.user.nickname || msg.user.email %></strong><br>
+      <% end %>
       <%= msg.content %>
-      <small><%= msg.created_at.strftime("%m/%d %H:%M") %></small>
-    </p>
+      <div class="message-time"><%= msg.created_at.strftime("%m/%d %H:%M") %></div>
+    </div>
   <% end %>
 </div>
 
-<%= form_with model: [@chat_room, @message], local: true do |f| %>
-  <div>
+
+<%= form_with model: [@chat_room, @message], local: true, html: { multipart: true } do |f| %>
+  <div style="margin-top: 1rem;">
     <%= f.text_area :content, rows: 3, placeholder: "メッセージを入力" %>
   </div>
-  <div>
+  <div style="text-align: right; margin-top: 0.5rem;">
+    <%= f.file_field :image, accept: 'image/*' %>
     <%= f.submit "送信" %>
   </div>
 <% end %>
+
+<script>
+  // ページ読み込み時にメッセージのスクロールを一番下に
+  window.onload = function() {
+    var messages = document.getElementById('messages');
+    messages.scrollTop = messages.scrollHeight;
+  }
+</script>

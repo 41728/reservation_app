@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :chat_room_users, dependent: :destroy
   has_many :chat_rooms, through: :chat_room_users
+  has_many :homes
+  has_one_attached :avatar
 
   def admin?
     self.role == "admin"  # roleカラムが"admin"なら管理者

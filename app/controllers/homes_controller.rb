@@ -12,17 +12,54 @@ class HomesController < ApplicationController
 
 
   def new
-    @home = Home.new
+    if params[:start_time].present?
+      @home = current_user.homes.new(start_time: params[:start_time])
+    else
+      @home = current_user.homes.new
+    end
   end
+
+
 
   def create
     @home = current_user.homes.new(home_params)
+    if @home.start_time.present? && @home.end_time.blank?
+      @home.end_time = @home.start_time + 30.minutes
+    end
+
     if @home.save
-      redirect_to homes_path, notice: "予約が登録されました。"
+      redirect_to user_path(current_user), notice: "予約が登録されました。"
     else
       render :new
     end
   end
+
+  def edit
+    @home = current_user.homes.find(params[:id])
+  end
+
+  def update
+    @home = current_user.homes.find(params[:id])
+    if @home.update(home_params)
+      redirect_to user_path(current_user), notice: "予約を更新しました。"
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @home = current_user.homes.find(params[:id])
+    @home.destroy
+
+    respond_to do |format|
+      format.html { redirect_to user_path(current_user), notice: "予約を削除しました。" }
+      format.turbo_stream
+    end
+  end
+
+
+
+
 
   private
 

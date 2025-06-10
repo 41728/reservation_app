@@ -11,21 +11,24 @@ class ChatRoomsController < ApplicationController
     @chat_rooms.each do |room|
       @unread_counts[room.id] = room.messages.where(read: false).where.not(user_id: current_user.id).count
     end
+
+    @admin_user = User.find_by(admin: true)
   end
 
   # 1対1チャットルーム作成（管理者とユーザー間のみ）
   def create
     target_user = User.find(params[:user_id])
+
     unless current_user.admin? || target_user.admin?
       redirect_to chat_rooms_path, alert: "管理者とユーザー間のみチャット可能です"
       return
     end
 
-    # 既存のチャットルームを探す（ユーザー2人だけのルーム）
-    room = ChatRoom.joins(:users)
+    # 修正されたロジック
+    room = ChatRoom.joins(:chat_room_users)
                    .group('chat_rooms.id')
-                   .having('COUNT(chat_rooms.id) = 2')
-                   .where(users: { id: [current_user.id, target_user.id] })
+                   .having('COUNT(chat_room_users.user_id) = 2')
+                   .where(chat_room_users: { user_id: [current_user.id, target_user.id] })
                    .first
 
     unless room
@@ -34,8 +37,9 @@ class ChatRoomsController < ApplicationController
       room.chat_room_users.create!(user: target_user)
     end
 
-    redirect_to chat_room_path(room)
+    redirect_to chat_room_path(room) # トーク画面に遷移
   end
+
 
   # チャットルーム詳細（メッセージ一覧）
   def show

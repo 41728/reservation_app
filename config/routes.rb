@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   # Deviseルートを先に定義！
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
 
   # 通常のリソースルーティング
-  resources :homes, only: [:index, :new, :show, :create]
+  resources :homes, except: [:show]
   resources :users, only: [:show]
 
-  resources :chat_rooms, only: [:index, :show] do
+  resources :chat_rooms, only: [:index, :show, :create] do
     resources :messages, only: [:create]
   end  # ここを追加
 

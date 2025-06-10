@@ -1,0 +1,32 @@
+<% css_class = message.user == current_user ? "self" : "other" %>
+<div class="message <%= css_class %>">
+  <% unless css_class == "self" %>
+    <strong><%= message.user.nickname || message.user.email %></strong><br>
+  <% end %>
+  <%= message.content %>
+  <div class="message-time"><%= message.created_at.strftime("%m/%d %H:%M") %></div>
+</div>
+
+<% if message.image.attached? %>
+  <div><%= image_tag message.image.variant(resize_to_limit: [200, 200]) %></div>
+<% end %>
+
+<div class="message <%= css_class %>">
+  <% unless css_class == "self" %>
+    <div class="user-icon">
+      <% if message.user.avatar.attached? %>
+        <%= image_tag message.user.avatar.variant(resize_to_limit: [40, 40]), class: "avatar" %>
+      <% else %>
+        <%= image_tag "default_avatar.png", class: "avatar" %>
+      <% end %>
+    </div>
+    <strong><%= message.user.nickname || message.user.email %></strong><br>
+  <% end %>
+  <%= message.content %>
+  ...
+</div>
+
+
+<div id="messages" data-chat-room-id="<%= @chat_room.id %>" style="height: 400px; overflow-y: scroll; ...">
+  ...
+</div>

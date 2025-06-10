@@ -16,7 +16,7 @@
     
       <div style="text-align: right;">
         <% if user_signed_in? %>
-          <p>こんにちは、<%= current_user.email %>さん！</p>
+          <p>こんにちは、<%= current_user.nickname %>さん！</p>
           <%= link_to 'マイページへ', user_path(current_user) %> |
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete, confirm: "ログアウトしますか？" } %>
         <% else %>

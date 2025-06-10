@@ -8,7 +8,8 @@ class MessagesController < ApplicationController
     @message.user = current_user
 
     if @message.save
-      redirect_to chat_room_path(@chat_room)
+      ChatRoomChannel.broadcast_to(@chat_room, message: render_message(@message))
+      head :ok
     else
       @messages = @chat_room.messages.includes(:user).order(:created_at)
       render 'chat_rooms/show'
@@ -17,7 +18,7 @@ class MessagesController < ApplicationController
 
   private
 
-  def message_params
-    params.require(:message).permit(:content)
+  def render_message(message)
+    ApplicationController.renderer.render(partial: 'messages/message', locals: { message: message })
   end
 end

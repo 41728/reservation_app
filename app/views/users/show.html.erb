@@ -1,11 +1,51 @@
-<h1><%= @user.email %>さんのマイページ</h1>
-<p>ユーザー情報をここに表示します。</p>
-<p>ようこそ、<%= current_user.email %> さん</p>
+<h1 style="text-align: center; color: #2c3e50; margin-bottom: 1rem;">
+  <%= current_user.nickname %>さんのマイページ
+</h1>
 
-<h3>チャットルーム</h3>
-<ul>
-  <% ChatRoom.all.each do |room| %>
-    <li><%= link_to room.name, chat_room_path(room) %></li>
+<h2 style="text-align: center; color: #2980b9; margin-top: 2rem;">
+  予約一覧
+</h2>
+
+<% if @homes.any? %>
+  <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; max-width: 500px; margin: 0 auto; 
+         border-collapse: collapse; text-align: center; 
+         color: #2c3e50; background-color: #ecf0f1; 
+         border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <thead>
+      <tr style="background-color: #3498db; color: white;">
+        <th>予約日時</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @homes.each do |home| %>
+        <tr>
+          <td style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem;">
+            <div style="flex: 1; text-align: center;">
+              <%= home.start_time.strftime("%Y年%m月%d日 %H:%M") %>
+            </div>
+            <div style="flex-shrink: 0;">
+              <%= link_to "削除", home_path(home), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                    style: "color: #e74c3c; text-decoration: none; font-weight: bold; margin-left: 1rem;" %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p style="text-align: center; color: #7f8c8d;">まだ予約はありません。</p>
+<% end %>
+
+
+<div style="text-align: center; margin-top: 1rem;">
+  <% if @admin_user %>
+    <%= link_to "チャットを開始する", chat_rooms_path(user_id: @admin_user.id), method: :post, data: { confirm: "チャットを開始しますか？" }, class: "btn" %>
+    <p style="margin-top: 0.5rem; color: #555;">
+      管理者: <%= @admin_user.nickname.presence || @admin_user.email %>
+    </p>
+  <% else %>
+    <p>管理者ユーザーが存在しません。</p>
   <% end %>
-</ul>
-<%= link_to "チャットルーム一覧へ", chat_rooms_path %>
+</div>
+
+

@@ -1,45 +1,30 @@
-<h1>新しい予約</h1>
+<h1 style="text-align: center; color: #2c3e50; margin-bottom: 1rem;">新しい予約</h1>
 
-<h2>予約する曜日を選んでください</h2>
+<div style="max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; text-align: center;">
 
-<div id="days-tabs">
-  <% Date::DAYNAMES.each_with_index do |day, i| %>
-    <button type="button" data-day="<%= i %>" class="day-btn"><%= day %></button>
+  <p style="font-size: 1.2rem; color: #34495e; margin-bottom: 2rem;">
+    選択された予約日時：<br>
+    <strong id="selected-datetime" style="color: #27ae60;">
+      <%= @home.start_time ? @home.start_time.strftime("%Y年%m月%d日 %H:%M") : "未選択" %>
+    </strong>
+  </p>
+
+  <%= form_with model: @home, local: true do |f| %>
+    <%= f.hidden_field :start_time %>
+
+    <%= f.submit "予約を確定する", style: "background-color: #27ae60; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem;" %>
   <% end %>
-</div>
 
-<div id="time-slots">
-  <!-- 時間帯ボタンがここに動的に表示される -->
+  <div style="margin-top: 1rem;">
+    <%= link_to "予約一覧に戻る", homes_path, style: "color: #2980b9; text-decoration: none;" %>
+  </div>
 </div>
-
-<%= form_with model: @home, local: true do |f| %>
-  <%= hidden_field_tag 'home[day_of_week]', nil, id: 'selected-day' %>
-  <%= hidden_field_tag 'home[start_time]', nil, id: 'selected-start-time' %>
-  <%= f.submit "予約を確定する" %>
-<% end %>
 
 <script>
-  const timeSlots = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30'];
-  const timeSlotsDiv = document.getElementById('time-slots');
-  const selectedDayInput = document.getElementById('selected-day');
-  const selectedStartTimeInput = document.getElementById('selected-start-time');
-
-  document.querySelectorAll('.day-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      selectedDayInput.value = btn.dataset.day;
-      timeSlotsDiv.innerHTML = '';
-      timeSlots.forEach(time => {
-        const timeBtn = document.createElement('button');
-        timeBtn.type = 'button';
-        timeBtn.textContent = time;
-        timeBtn.addEventListener('click', () => {
-          selectedStartTimeInput.value = time;
-          alert(`予約日時: 曜日 ${btn.textContent} - 時間 ${time}`);
-        });
-        timeSlotsDiv.appendChild(timeBtn);
-      });
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    const datetimeText = document.getElementById('selected-datetime').textContent;
+    if(datetimeText && datetimeText !== "未選択") {
+      alert(`予約日時は ${datetimeText} です。よろしいですか？`);
+    }
   });
 </script>
-
-<%= link_to "予約一覧に戻る", homes_path %>

@@ -9,3 +9,53 @@ table {
   text-align: center;
 }
 
+
+
+
+
+
+/* チャット全体の高さとスクロール設定 */
+#messages {
+  height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #e5ddd5;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 吹き出し共通 */
+.message {
+  max-width: 70%;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  position: relative;
+  word-wrap: break-word;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  font-size: 14px;
+}
+
+/* 自分のメッセージ（右寄せ） */
+.message.self {
+  background-color: #dcf8c6;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+
+/* 相手のメッセージ（左寄せ） */
+.message.other {
+  background-color: white;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
+
+/* 時間表示 */
+.message-time {
+  font-size: 10px;
+  color: gray;
+  margin-top: 5px;
+  text-align: right;
+}
+
