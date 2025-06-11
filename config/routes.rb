@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  # Deviseルートを先に定義！
+  # Deviseルート（1回にまとめる）
   devise_for :users, controllers: {
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   # 通常のリソースルーティング
@@ -10,11 +11,15 @@ Rails.application.routes.draw do
 
   resources :chat_rooms, only: [:index, :show, :create] do
     resources :messages, only: [:create]
-  end  # ここを追加
+  end
 
   # トップページ
   root "homes#index"
 
   # オプションのヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
+
+  # 必要ならカスタムコールバックルート（DeviseのOmniauthを使ってない場合のみ）
+  #get '/auth/:provider/callback', to: 'google#callback'
+  #get '/auth/failure', to: redirect('/')
 end

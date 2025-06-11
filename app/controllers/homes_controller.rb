@@ -10,7 +10,6 @@ class HomesController < ApplicationController
     @start_date = start_of_week
   end
 
-
   def new
     if params[:start_time].present?
       @home = current_user.homes.new(start_time: params[:start_time])
@@ -19,8 +18,6 @@ class HomesController < ApplicationController
     end
   end
 
-
-
   def create
     @home = current_user.homes.new(home_params)
     if @home.start_time.present? && @home.end_time.blank?
@@ -28,7 +25,15 @@ class HomesController < ApplicationController
     end
 
     if @home.save
-      redirect_to user_path(current_user), notice: "予約が登録されました。"
+      service = GoogleService.new(current_user)
+      meet_url = service.create_google_meet_event(
+        summary: "予約セッション",
+        start_time: @home.start_time,
+        end_time: @home.end_time
+      )
+      @home.update(google_meet_url: meet_url)
+
+      redirect_to user_path(current_user), notice: "予約が登録されました（Google Meetリンクあり）"
     else
       render :new
     end
@@ -52,14 +57,10 @@ class HomesController < ApplicationController
     @home.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_path(current_user), notice: "予約を削除しました。" }
       format.turbo_stream
+      format.html { redirect_to user_path(current_user), notice: "予約を削除しました。" }
     end
   end
-
-
-
-
 
   private
 
@@ -67,4 +68,3 @@ class HomesController < ApplicationController
     params.require(:home).permit(:start_time, :end_time)
   end
 end
-

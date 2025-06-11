@@ -67,3 +67,13 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+
+gem 'gon'
+
+gem 'dotenv-rails', groups: [:development, :test]
+
+gem 'omniauth', '~> 1.9'
+gem 'omniauth-google-oauth2', '~> 0.8'
+
+gem 'google-api-client', '~> 0.53.0'
+

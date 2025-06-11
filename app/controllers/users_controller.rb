@@ -13,6 +13,6 @@ class UsersController < ApplicationController
       @chat_rooms = @user.chat_rooms
     end
 
-    @admin_user = User.find_by(admin: true)
+    @admin_user = User.find_by(role: 'admin')
   end
 end
