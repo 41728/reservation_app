@@ -13,6 +13,11 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
   end
 
+  namespace :admin do
+    get 'reservations/index'
+    resources :reservations, only: [:index]
+  end
+
   # トップページ
   root "homes#index"
 
@@ -22,4 +27,9 @@ Rails.application.routes.draw do
   # 必要ならカスタムコールバックルート（DeviseのOmniauthを使ってない場合のみ）
   #get '/auth/:provider/callback', to: 'google#callback'
   #get '/auth/failure', to: redirect('/')
+  get  'google_calendar',              to: 'google_calendar#index'
+  get  'google_calendar/auth',         to: 'google_calendar#authorize'
+  get  'google_calendar/callback',     to: 'google_calendar#callback'
+  post 'google_calendar/create_event', to: 'google_calendar#create_event'
+  get 'oauth2callback', to: 'google_calendar#callback'
 end

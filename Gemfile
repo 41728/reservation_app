@@ -76,4 +76,4 @@ gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '~> 0.8'
 
 gem 'google-api-client', '~> 0.53.0'
-
+gem 'signet', '~> 0.17.0'

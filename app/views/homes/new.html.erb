@@ -5,7 +5,7 @@
   <p style="font-size: 1.2rem; color: #34495e; margin-bottom: 2rem;">
     選択された予約日時：<br>
     <strong id="selected-datetime" style="color: #27ae60;">
-      <%= @home.start_time ? @home.start_time.strftime("%Y年%m月%d日 %H:%M") : "未選択" %>
+      <%= @home.start_time.in_time_zone('Asia/Tokyo').strftime("%Y年%m月%d日 %H:%M") %>
     </strong>
   </p>
 

@@ -43,7 +43,7 @@
             <td style="background-color: #f9f9f9; font-weight: bold;"><%= format("%02d:%02d", hour, min) %></td>
             <% @week_days.each do |day| %>
               <td>
-                <% current_time = day.to_datetime.change(hour: hour, min: min) %>
+                <% current_time = Time.zone.local(day.year, day.month, day.day, hour, min) %>
                 <% reservation = @homes.find { |r| r.start_time <= current_time && r.end_time > current_time } %>
                 <% if reservation %>
                   <span style="color: red; font-weight: bold;">×</span>

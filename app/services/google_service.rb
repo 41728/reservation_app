@@ -39,9 +39,6 @@ class GoogleService
   private
 
   def user_google_credentials
-    # userモデルに保存したアクセストークン・リフレッシュトークン等を使って
-    # Google認証クライアントを作成し返すコード例です。
-
     client_id = ENV['GOOGLE_CLIENT_ID']
     client_secret = ENV['GOOGLE_CLIENT_SECRET']
 
@@ -51,16 +48,24 @@ class GoogleService
       token_credential_uri: 'https://oauth2.googleapis.com/token',
       access_token: @user.google_access_token,
       refresh_token: @user.google_refresh_token,
+      expires_at: @user.google_token_expires_at, # トークンの期限も渡す
       scope: SCOPE
     )
 
-    # トークン期限切れならリフレッシュ
     if auth_client.expired?
-      auth_client.refresh!
-      # 更新したアクセストークンをDBに保存
-      @user.update(google_access_token: auth_client.access_token)
+      # refresh_tokenがないとリフレッシュできないので例外を投げるか、処理を分ける
+      raise "Refresh token missing" if @user.google_refresh_token.blank?
+      
+      auth_client.grant_type = 'refresh_token'
+      auth_client.fetch_access_token! # これがrefresh_tokenを使ってアクセストークンを再取得
+
+      @user.update!(
+        google_access_token: auth_client.access_token,
+        google_token_expires_at: auth_client.expires_at
+      )
     end
 
     auth_client
   end
+
 end

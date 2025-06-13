@@ -28,8 +28,8 @@ Devise.setup do |config|
   config.responder.redirect_status = :see_other
 
   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {
-    scope: 'userinfo.email, userinfo.profile',
-    prompt: 'select_account',
+    scope: 'userinfo.email, userinfo.profile, https://www.googleapis.com/auth/calendar.events',
+    prompt: 'consent',
     access_type: 'offline'
   }
 end

@@ -1,0 +1,28 @@
+<!-- app/views/admin/reservations/index.html.erb -->
+
+<h2>予約一覧（管理者専用）</h2>
+
+<% if @reservations.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ユーザー名</th>
+        <th>開始日時</th>
+        <th>備考</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reservations.each do |reservation| %>
+        <tr>
+          <td><%= reservation.id %></td>
+          <td><%= reservation.user.name %></td>
+          <td><%= reservation.start_time.strftime('%Y-%m-%d %H:%M') %></td>
+          <td><%= reservation.notes %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>予約はまだありません。</p>
+<% end %>

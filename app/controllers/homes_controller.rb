@@ -20,6 +20,11 @@ class HomesController < ApplicationController
 
   def create
     @home = current_user.homes.new(home_params)
+
+    if @home.start_time.present?
+      @home.start_time = Time.zone.parse(@home.start_time.to_s)
+    end
+
     if @home.start_time.present? && @home.end_time.blank?
       @home.end_time = @home.start_time + 30.minutes
     end
@@ -53,7 +58,12 @@ class HomesController < ApplicationController
   end
 
   def destroy
-    @home = current_user.homes.find(params[:id])
+     if current_user.admin?
+      @home = Home.find(params[:id])  # 管理者は全ホームから検索
+    else
+      @home = current_user.homes.find(params[:id])  # 一般ユーザーは自分のもののみ
+    end
+    
     @home.destroy
 
     respond_to do |format|
