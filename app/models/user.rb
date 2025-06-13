@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   def admin?
-    self.role == "admin"  # roleカラムが"admin"なら管理者
+    admin
   end
 
   def self.from_omniauth(auth)

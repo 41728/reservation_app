@@ -5,12 +5,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if current_user.admin?
-      # 管理者は全予約・全homes表示
-      @reservations = Reservation.all.includes(:user)
-      @homes = Home.includes(:user).order(start_time: :asc)
+      @reservations = Reservation.includes(:user).order(start_time: :asc)
+      # 予約があるHomeだけ取得（重複なく）
+      @homes = Home.order(start_time: :asc)
       @chat_rooms = ChatRoom.all
     else
-      # 一般ユーザーは自分の予約とhomes、チャットルームだけ
       @reservations = @user.reservations
       @homes = @user.homes.order(start_time: :asc)
       @chat_rooms = @user.chat_rooms

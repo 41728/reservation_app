@@ -6,8 +6,12 @@ class HomesController < ApplicationController
     end_of_week = start_of_week + 6.days
 
     @week_days = (start_of_week..end_of_week).to_a
-    @homes = Home.where(start_time: start_of_week.beginning_of_day..end_of_week.end_of_day).includes(:user)
     @start_date = start_of_week
+
+    @homes_for_calendar = Home.where(start_time: start_of_week.beginning_of_day..end_of_week.end_of_day).includes(:user).order(:start_time)
+
+    # その他の用途に自分の予約を使う
+    @homes = current_user.homes.where(start_time: start_of_week.beginning_of_day..end_of_week.end_of_day).order(:start_time)
   end
 
   def new
@@ -63,7 +67,7 @@ class HomesController < ApplicationController
     else
       @home = current_user.homes.find(params[:id])  # 一般ユーザーは自分のもののみ
     end
-    
+
     @home.destroy
 
     respond_to do |format|

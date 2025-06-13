@@ -1,5 +1,6 @@
 class Home < ApplicationRecord
   belongs_to :user
+  has_many :reservations
 
   validates :start_time, presence: true
   validates :end_time, presence: true

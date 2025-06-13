@@ -1,13 +1,11 @@
 default: &default
   encoding: utf8
-  adapter: postgresql
-  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
   adapter: mysql2
-  username: reservation_app
+  username: root
   password:
   host: localhost
   database: reservation_app_development
@@ -15,14 +13,11 @@ development:
 test:
   <<: *default
   adapter: mysql2
-  username: reservation_app
+  username: root
   password:
   host: localhost
   database: reservation_app_test
 
 production:
-  <<: *default
   adapter: postgresql
-  database: reservation_app_production
-  username: reservation_app
-  password: <%= ENV["RESERVATION_APP_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>

@@ -44,7 +44,7 @@
             <% @week_days.each do |day| %>
               <td>
                 <% current_time = Time.zone.local(day.year, day.month, day.day, hour, min) %>
-                <% reservation = @homes.find { |r| r.start_time <= current_time && r.end_time > current_time } %>
+                <% reservation = @homes_for_calendar.find { |r| r.start_time <= current_time && r.end_time > current_time } %>
                 <% if reservation %>
                   <span style="color: red; font-weight: bold;">×</span>
                 <% else %>
