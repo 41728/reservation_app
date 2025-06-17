@@ -4,7 +4,7 @@ default: &default
 
 development:
   <<: *default
-  adapter: mysql2
+  adapter: postgresql
   username: root
   password:
   host: localhost
@@ -12,7 +12,7 @@ development:
 
 test:
   <<: *default
-  adapter: mysql2
+  adapter: postgresql
   username: root
   password:
   host: localhost
