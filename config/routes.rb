@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   }
 
   # 通常のリソースルーティング
-  resources :homes, except: [:show]
+  resources :homes
   resources :users, only: [:show]
 
   resources :chat_rooms, only: [:index, :show, :create] do

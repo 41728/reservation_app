@@ -48,6 +48,11 @@ class HomesController < ApplicationController
     end
   end
 
+  def show
+    @home = Home.find(params[:id])
+    # show用の処理
+  end
+
   def edit
     @home = current_user.homes.find(params[:id])
   end
