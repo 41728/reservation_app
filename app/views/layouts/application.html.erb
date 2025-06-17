@@ -19,7 +19,7 @@
           <p>こんにちは、<%= current_user.nickname %>さん！</p>
           <%= link_to 'マイページへ', user_path(current_user) %> |
           <%= link_to "アカウント編集", edit_user_registration_path %> |
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete, confirm: "ログアウトしますか？" } %>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav__logout" %>
         <% else %>
           <%= link_to 'ログイン', new_user_session_path %> |
           <%= link_to '新規登録', new_user_registration_path %>
