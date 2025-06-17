@@ -201,6 +201,7 @@ GEM
     multi_xml (0.7.2)
       bigdecimal (~> 3.1)
     mutex_m (0.3.0)
+    mysql2 (0.5.6)
     net-http (0.6.0)
       uri
     net-imap (0.5.8)
@@ -369,6 +370,7 @@ DEPENDENCIES
   google-api-client (~> 0.53.0)
   importmap-rails
   jbuilder
+  mysql2 (>= 0.5.3, < 0.6.0)
   omniauth (~> 1.9)
   omniauth-google-oauth2 (~> 0.8)
   pg (~> 1.5)
