@@ -50,22 +50,22 @@ https://reservation-app-4t4o.onrender.com
 ## アプリケーションを作成した背景
 
 予約制のサービスを手軽に管理・利用でき、GoogleMeetでやり取りできることを目標に開発しました。  
-店舗側も利用者側も、Web上で簡単に予約の作成・確認ができることを目指しています。
+管理者側も利用者側も、Web上で簡単に予約の作成・確認ができることを目指しています。
 
 ---
 
 ## 実装機能とその画像・GIF
 
-新規登録       https://gyazo.com/72cc8b9b117aa3d054674a47317f8e02
-ログイン       https://gyazo.com/862bd2ca2d912ba5c1de1a206272a7b6
-アカウント編集  https://gyazo.com/fffbc71a87c733cd84e3536a1b04cc54
-予約作成       https://gyazo.com/e6959b0e86eb61856977644408eebb3f
-ヘッダーの遷移  https://gyazo.com/c79feace80b8dda095d8298dbad97a19
-GoogleMeet    https://gyazo.com/5807c274c305ade2c2e1fe4defebe7c9
-管理者画面     https://gyazo.com/f071b0f00c7543dfd3d75dc06830f9f9
-予約削除       https://gyazo.com/9cf82ac08129a110e8773eff9db5f056
-ログアウト     https://gyazo.com/df30b768e1191030e7e0d75735c6065e
-アカウント削除  https://gyazo.com/de39d0cc417e874defcd2dbf97f42770
+- 新規登録       https://gyazo.com/72cc8b9b117aa3d054674a47317f8e02
+- ログイン       https://gyazo.com/862bd2ca2d912ba5c1de1a206272a7b6
+- アカウント編集  https://gyazo.com/fffbc71a87c733cd84e3536a1b04cc54
+- 予約作成       https://gyazo.com/e6959b0e86eb61856977644408eebb3f
+- ヘッダーの遷移  https://gyazo.com/c79feace80b8dda095d8298dbad97a19
+- GoogleMeet    https://gyazo.com/5807c274c305ade2c2e1fe4defebe7c9
+- 管理者画面     https://gyazo.com/f071b0f00c7543dfd3d75dc06830f9f9
+- 予約削除       https://gyazo.com/9cf82ac08129a110e8773eff9db5f056
+- ログアウト     https://gyazo.com/df30b768e1191030e7e0d75735c6065e
+- アカウント削除  https://gyazo.com/de39d0cc417e874defcd2dbf97f42770
 
 ---
 
@@ -74,7 +74,7 @@ GoogleMeet    https://gyazo.com/5807c274c305ade2c2e1fe4defebe7c9
 - 予約一覧削除、GoogleMeetのリンク、ログアウトを本番環境でも使えるように
 - 予約リマインド通知
 - チャットシステム
-- ユーザーの管理機能
+- 管理者側のユーザーの管理機能
 
 ---
 
