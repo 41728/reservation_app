@@ -80,13 +80,13 @@ https://reservation-app-4t4o.onrender.com
 
 ## データベース設計
 
-![ER図](https://gyazo.com/e0941b3f2ba8bd3ebd33d89a0ed01a6b)
+![ER図]https://gyazo.com/e0941b3f2ba8bd3ebd33d89a0ed01a6b
 
 ---
 
 ## 画面遷移図
 
-![画面遷移図](https://gyazo.com/125d9df2e9df22300d922c9d6d9afa31)
+![画面遷移図]https://gyazo.com/125d9df2e9df22300d922c9d6d9afa31
 
 ---
 
@@ -94,7 +94,7 @@ https://reservation-app-4t4o.onrender.com
 
 - フロントエンド：HTML / CSS / JavaScript
 - バックエンド：Ruby on Rails 7.1.5.1
-- データベース：MySQL（開発・テスト） / PostgreSQL（本番
+- データベース：MySQL（開発・テスト） / PostgreSQL（本番）
 - 認証：Devise
 
 ---
